@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>PrincipalActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PrincipalActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">taller2eventos</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">AsyncTask</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">Bundle</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">view</span><span class="s2">.</span><span class="s1">View</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Button</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">EditText</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">ProgressBar</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">TextView</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">androidx</span><span class="s2">.</span><span class="s1">appcompat</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AppCompatActivity</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">PrincipalActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">EditText nombreEditText</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">Button guardarButton</span><span class="s2">, </span><span class="s1">iniciarTareaButton</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">TextView nombreTextView</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">ProgressBar progressBar</span><span class="s2">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">Bundle savedInstanceState</span><span class="s2">) {</span>
+        <span class="s0">super</span><span class="s2">.</span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">savedInstanceState</span><span class="s2">);</span>
+        <span class="s1">setContentView</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">activity_principal</span><span class="s2">);</span>
+
+        <span class="s1">nombreEditText </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">nombreEditText</span><span class="s2">);</span>
+        <span class="s1">guardarButton </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">guardarButton</span><span class="s2">);</span>
+        <span class="s1">iniciarTareaButton </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">iniciarTareaButton</span><span class="s2">);</span>
+        <span class="s1">nombreTextView </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">nombreTextView</span><span class="s2">);</span>
+        <span class="s1">progressBar </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">progressBar</span><span class="s2">);</span>
+
+        <span class="s3">// Guardar nombre</span>
+        <span class="s1">guardarButton</span><span class="s2">.</span><span class="s1">setOnClickListener</span><span class="s2">(</span><span class="s1">v -&gt; </span><span class="s2">{</span>
+            <span class="s1">String nombre </span><span class="s2">= </span><span class="s1">nombreEditText</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">().</span><span class="s1">toString</span><span class="s2">();</span>
+            <span class="s1">nombreTextView</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">nombre</span><span class="s2">);</span>
+        <span class="s2">});</span>
+
+        <span class="s3">// Iniciar tarea en segundo plano</span>
+        <span class="s1">iniciarTareaButton</span><span class="s2">.</span><span class="s1">setOnClickListener</span><span class="s2">(</span><span class="s1">v -&gt; </span><span class="s2">{</span>
+            <span class="s0">new </span><span class="s1">TareaEnSegundoPlano</span><span class="s2">().</span><span class="s1">execute</span><span class="s2">();</span>
+        <span class="s2">});</span>
+    <span class="s2">}</span>
+
+    <span class="s3">// AsyncTask para simular operación de red</span>
+    <span class="s0">private class </span><span class="s1">TareaEnSegundoPlano </span><span class="s0">extends </span><span class="s1">AsyncTask</span><span class="s2">&lt;</span><span class="s1">Void</span><span class="s2">, </span><span class="s1">Integer</span><span class="s2">, </span><span class="s1">Void</span><span class="s2">&gt; {</span>
+        <span class="s1">@Override</span>
+        <span class="s0">protected void </span><span class="s1">onPreExecute</span><span class="s2">() {</span>
+            <span class="s1">progressBar</span><span class="s2">.</span><span class="s1">setVisibility</span><span class="s2">(</span><span class="s1">View</span><span class="s2">.</span><span class="s1">VISIBLE</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">protected </span><span class="s1">Void doInBackground</span><span class="s2">(</span><span class="s1">Void... voids</span><span class="s2">) {</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s4">1</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt;= </span><span class="s4">10</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+                <span class="s0">try </span><span class="s2">{</span>
+                    <span class="s1">Thread</span><span class="s2">.</span><span class="s1">sleep</span><span class="s2">(</span><span class="s4">500</span><span class="s2">); </span><span class="s3">// Simula la operación de red</span>
+                    <span class="s1">publishProgress</span><span class="s2">(</span><span class="s1">i </span><span class="s2">* </span><span class="s4">10</span><span class="s2">);</span>
+                <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">InterruptedException e</span><span class="s2">) {</span>
+                    <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">return null</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">protected void </span><span class="s1">onProgressUpdate</span><span class="s2">(</span><span class="s1">Integer... values</span><span class="s2">) {</span>
+            <span class="s1">progressBar</span><span class="s2">.</span><span class="s1">setProgress</span><span class="s2">(</span><span class="s1">values</span><span class="s2">[</span><span class="s4">0</span><span class="s2">]);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">@Override</span>
+        <span class="s0">protected void </span><span class="s1">onPostExecute</span><span class="s2">(</span><span class="s1">Void aVoid</span><span class="s2">) {</span>
+            <span class="s1">progressBar</span><span class="s2">.</span><span class="s1">setVisibility</span><span class="s2">(</span><span class="s1">View</span><span class="s2">.</span><span class="s1">GONE</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
